@@ -49,6 +49,29 @@ const getBuilderIoUser = async (userId: string) => {
   return JSON.stringify(user);
 }; 
 
+const formatDate = (dateInput: number) => {
+  const updatedDate = new Date(dateInput);
+
+  const YYYY = updatedDate.getFullYear(); 
+
+  const month = updatedDate.getMonth() + 1;
+  const MM = String(month).padStart(2, '0');
+  
+  const date = updatedDate.getDate();
+  const DD = String(date).padStart(2, '0');
+
+  const hour = updatedDate.getHours();
+  const hh = String(hour).padStart(2, '0');
+
+  const min = updatedDate.getMinutes();
+  const mm = String(min).padStart(2, '0');
+
+  const second = updatedDate.getSeconds();
+  const ss = String(second).padStart(2, '0');
+
+  return `${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss}`; 
+}
+
 
 const callDoorayIncomingHook = async (body: any) => {
   const { newValue, previousValue } = body;
@@ -72,9 +95,11 @@ const callDoorayIncomingHook = async (body: any) => {
 
   const {published, name, lastUpdated, lastUpdateBy} = newValue;
 
+  const userInfo = await getBuilderIoUser(lastUpdateBy);
+
   const contentTitle = `콘텐츠 제목 : ${name}`;
-  const lastUpdatedDate = `마지막 수정 날짜 : ${new Date(lastUpdated).toString()}`;
-  const lastUpdatedPerson = `마지막 수정 담당자 : ${getBuilderIoUser(lastUpdateBy)}`;
+  const lastUpdatedDate = `마지막 수정 날짜 : ${formatDate(lastUpdated)}`;
+  const lastUpdatedPerson = `마지막 수정 담당자 : ${userInfo}`;
   const action = `액션 : ${published}`;
 
   message = `${contentTitle}\n${lastUpdatedDate}\n${lastUpdatedPerson}\n${action}`;
