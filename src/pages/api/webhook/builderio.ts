@@ -64,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Respond to the request indicating success
     // https://hook.dooray.com/services/1590498595903871702/3860379888550721054/7LG5oUm9QOqejchIWH4tlA 두레이훅으로보내야함
-    await callDoorayIncomingHook(req);
+    await callDoorayIncomingHook(req?.body?.newValue);
     return res.status(200).json({ message: 'Webhook received and processed', req });
   } else {
 
