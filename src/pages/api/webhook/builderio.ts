@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import {  format } from 'date-fns-tz';
+import { toZonedTime, format } from 'date-fns-tz';
 
 
 const doorayIncomingUrl = 'https://hook.dooray.com/services/1590498595903871702/3860379888550721054/7LG5oUm9QOqejchIWH4tlA';
@@ -32,7 +32,7 @@ const getBuilderIoUser = async (userId: string) => {
 const formatDate = (dateInput: number) => {
   const date = new Date(dateInput);
   const timeZone = "Asia/Seoul";
-  const zonedDate = utcToZonedTime(date, timeZone);
+  const zonedDate = toZonedTime(date, timeZone);
   const pattern = "yyyy.MM.dd HH:mm:ss.SSS";
 
   return format(zonedDate, pattern, { timeZone: "Asia/Seoul" });
