@@ -1,27 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// type ResponseData = {
-//   message: string;
-// };
+import { zonedTimeToUtc, utcToZonedTime, format } from 'date-fns-tz';
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   if (req.method === 'POST') {
-//     const { newValue, previousValue } = req.body;
+// Set the date to "2018-09-01T16:01:36.386Z"
+// const utcDate = zonedTimeToUtc("2018-09-01 18:01:36.386", "Asia/Seoul");
 
-//     console.log('New Value:', newValue);
-//     console.log('Previous Value:', previousValue);
+// Obtain a Date instance that will render the equivalent Berlin time for the UTC date
+const date = new Date("2018-09-01T16:01:36.386Z");
+const timeZone = "Asia/Seoul";
+const zonedDate = utcToZonedTime(date, timeZone);
+// zonedDate could be used to initialize a date picker or display the formatted local date/time
 
-//     // Here you can add the logic to process the webhook data
-//     // For example, updating your local database, invalidating cache, etc.
-
-//     // Respond to the request indicating success
-//     return res.status(200).json({ message: 'Webhook received and processed' });
-//   } else {
-//     // Handle any other HTTP methods
-//     res.setHeader('Allow', ['POST']);
-//     return res.status(405).end(`Method ${req.method} Not Allowed`);
-//   }
-// }
+// Set the output to "1.9.2018 18:01:36.386 GMT+02:00 (CEST)"
+const pattern = "yyyy.MM.dd HH:mm:ss.SSS";
+const output = format(zonedDate, pattern, { timeZone: "Asia/Seoul" });
 
 const doorayIncomingUrl = 'https://hook.dooray.com/services/1590498595903871702/3860379888550721054/7LG5oUm9QOqejchIWH4tlA';
 const requestBuilderIoUsersUrl = 'https://cdn.builder.io/api/v1/users?apiKey=a73e01a1c6a34697ab20d49c30aab093';
@@ -46,30 +38,16 @@ const getBuilderIoUser = async (userId: string) => {
   const user = users.find(({ id }) => id === userId)
 
   // return user ? `${user.name}(${user.email})`: userId;
-  return JSON.stringify(user);
+  return JSON.stringify(data);
 }; 
 
 const formatDate = (dateInput: number) => {
-  const updatedDate = new Date(dateInput);
+  const date = new Date(dateInput);
+  const timeZone = "Asia/Seoul";
+  const zonedDate = utcToZonedTime(date, timeZone);
+  const pattern = "yyyy.MM.dd HH:mm:ss.SSS";
 
-  const YYYY = updatedDate.getFullYear(); 
-
-  const month = updatedDate.getMonth() + 1;
-  const MM = String(month).padStart(2, '0');
-  
-  const date = updatedDate.getDate();
-  const DD = String(date).padStart(2, '0');
-
-  const hour = updatedDate.getHours();
-  const hh = String(hour).padStart(2, '0');
-
-  const min = updatedDate.getMinutes();
-  const mm = String(min).padStart(2, '0');
-
-  const second = updatedDate.getSeconds();
-  const ss = String(second).padStart(2, '0');
-
-  return `${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss}`; 
+  return format(zonedDate, pattern, { timeZone: "Asia/Seoul" });
 }
 
 
