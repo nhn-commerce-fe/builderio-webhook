@@ -37,15 +37,13 @@ const callDoorayIncomingHook = async (params: any) => {
       {
         "botName": "BuilderIO 봇",
         "botIconImage": "https://static.dooray.com/static_images/dooray-bot.png",
-        "text": "[WebHook Test Page] Publish"
+        "text": JSON.stringify(params)
       } 
   )
 });
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req, res);
-
   if (req.method === 'GET') {
     const data = { 
       pokemon: {
