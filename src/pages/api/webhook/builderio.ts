@@ -15,7 +15,7 @@ const getBuilderIoUser = async (userId: string) => {
   const res = await fetch(requestBuilderIoUsersUrl, {
     method: 'GET',
     headers: {
-      Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkYmUwNmI1ZDdjMmE3YzA0NDU2MzA2MWZmMGZlYTM3NzQwYjg2YmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnVpbGRlci0zYjBhMiIsImF1ZCI6ImJ1aWxkZXItM2IwYTIiLCJhdXRoX3RpbWUiOjE3MjI0OTM4NzMsInVzZXJfaWQiOiJyUGEzU2pabzFEWE5yZ2prRHpHUWx3RjR4SmcxIiwic3ViIjoiclBhM1NqWm8xRFhOcmdqa0R6R1Fsd0Y0eEpnMSIsImlhdCI6MTcyMjU2MjA5NywiZXhwIjoxNzIyNTY1Njk3LCJlbWFpbCI6ImRsX2Zyb250ZW5kQG5obi1jb21tZXJjZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJkbF9mcm9udGVuZEBuaG4tY29tbWVyY2UuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.qebpdJOVf6_aG1uCaP9ffvxnxIuxb_qPUauD3-WCA2nsqHHskfSWZY55148GMAJ79hjwRLMOwJpOZUWsMAijEDo7b7xCVlA2tjlniA0iO5KLyzdWpZ4SFBdpoyEC6IoF3puxb0JZu-V1SSuQSXDj9CJ8c9YF7R0gII1Kgx0GAoWOUlXCE-st2EkJjPeCg6cuuYEkFayBUM4THpSCFaQ_dYMTpxjyBlm-_HTjNvS05ITPv9EE0luHoMxQwXRFBG2l1yWi5PXkpxMmW24OY2kQU0SXf90WDQuFfG3lyeOn1Qn9Bti35XQMBo3A2CeEkznIEnENm-NHNgCfW8ePoB8zxg'
+      Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkYmUwNmI1ZDdjMmE3YzA0NDU2MzA2MWZmMGZlYTM3NzQwYjg2YmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnVpbGRlci0zYjBhMiIsImF1ZCI6ImJ1aWxkZXItM2IwYTIiLCJhdXRoX3RpbWUiOjE3MjI0OTM4NzMsInVzZXJfaWQiOiJyUGEzU2pabzFEWE5yZ2prRHpHUWx3RjR4SmcxIiwic3ViIjoiclBhM1NqWm8xRFhOcmdqa0R6R1Fsd0Y0eEpnMSIsImlhdCI6MTcyMjU4NTU3OCwiZXhwIjoxNzIyNTg5MTc4LCJlbWFpbCI6ImRsX2Zyb250ZW5kQG5obi1jb21tZXJjZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJkbF9mcm9udGVuZEBuaG4tY29tbWVyY2UuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.tRn8You4XXUz69l_TUPdLhbDHTWMR4bqQsfTPxYomCTqC7TYMuKkeXwZSgQdUKQ_4nLvDtrLqo6zs0xhToTpUwQDHy6LaWbfmBG6RQT5TabS1Y6wlg0w89m_WwiyaleMHbFoJ5TxXxe1argkJhFidNjGq3w7pxLB6Br0XxWEl4ZMR-ZY5YQV7SM2fhZxVxtdDFJ9wG90iucsHqrqOIKsNlfAtGXI1MPn7Jt_5yws3jhKIe_VlTnXgph_vWbXDqicmsKBBd74nQxVDObycmwR1TVM_d5Ut-_lTzufulehwn2qMe_tcBJbAM2SSYS67gU1Q_9qwwSxHYM7k28NJCNpow'
     }
   })
 
@@ -25,8 +25,8 @@ const getBuilderIoUser = async (userId: string) => {
 
   const user = users.find(({ id }) => id === userId)
 
-  // return user ? `${user.name}(${user.email})`: userId;
-  return JSON.stringify(data);
+  return user ? `${user.name}(${user.email})`: userId;
+  // return JSON.stringify(data);
 }; 
 
 const formatDate = (dateInput: number) => {
@@ -78,7 +78,7 @@ const callDoorayIncomingHook = async (body: any) => {
 
     body: JSON.stringify(
       {
-        botName: "BuilderIO 봇",
+        botName: "BuilderIO",
         botIconImage: "https://github.com/user-attachments/assets/c420a811-a504-4ac3-a0d5-a6f042b9cdd6",
         text: message
       } 
@@ -90,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const data = { 
       pokemon: {
-          name: '꼬부기'
+          name: 'NHN COMMERCE 프론트엔드개발팀'
       }
     }
   
