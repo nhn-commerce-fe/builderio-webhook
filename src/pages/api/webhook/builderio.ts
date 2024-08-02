@@ -45,7 +45,8 @@ const getBuilderIoUser = async (userId: string) => {
 
   const user = users.find(({ id }) => id === userId)
 
-  return user ? `${user.name}(${user.email})`: userId;
+  // return user ? `${user.name}(${user.email})`: userId;
+  return JSON.stringify(user);
 }; 
 
 
@@ -72,7 +73,7 @@ const callDoorayIncomingHook = async (body: any) => {
   const {published, name, lastUpdated, lastUpdateBy} = newValue;
 
   const contentTitle = `콘텐츠 제목 : ${name}`;
-  const lastUpdatedDate = `마지막 수정 날짜 : ${lastUpdated}`;
+  const lastUpdatedDate = `마지막 수정 날짜 : ${new Date(lastUpdated).toString()}`;
   const lastUpdatedPerson = `마지막 수정 담당자 : ${getBuilderIoUser(lastUpdateBy)}`;
   const action = `액션 : ${published}`;
 
