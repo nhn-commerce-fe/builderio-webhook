@@ -1,19 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { zonedTimeToUtc, utcToZonedTime, format } from 'date-fns-tz';
+import {  format } from 'date-fns-tz';
 
-// Set the date to "2018-09-01T16:01:36.386Z"
-// const utcDate = zonedTimeToUtc("2018-09-01 18:01:36.386", "Asia/Seoul");
-
-// Obtain a Date instance that will render the equivalent Berlin time for the UTC date
-const date = new Date("2018-09-01T16:01:36.386Z");
-const timeZone = "Asia/Seoul";
-const zonedDate = utcToZonedTime(date, timeZone);
-// zonedDate could be used to initialize a date picker or display the formatted local date/time
-
-// Set the output to "1.9.2018 18:01:36.386 GMT+02:00 (CEST)"
-const pattern = "yyyy.MM.dd HH:mm:ss.SSS";
-const output = format(zonedDate, pattern, { timeZone: "Asia/Seoul" });
 
 const doorayIncomingUrl = 'https://hook.dooray.com/services/1590498595903871702/3860379888550721054/7LG5oUm9QOqejchIWH4tlA';
 const requestBuilderIoUsersUrl = 'https://cdn.builder.io/api/v1/users?apiKey=a73e01a1c6a34697ab20d49c30aab093';
