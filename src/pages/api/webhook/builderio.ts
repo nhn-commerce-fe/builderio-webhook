@@ -183,15 +183,16 @@ const callDoorayIncomingHook = async (body: any) => {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const data = { 
-      pokemon: {
+      company: {
           name: 'NHN COMMERCE 프론트엔드개발팀'
       }
     }
   
     res.status(200).json(data);
   } else if (req.method === 'POST') {
-    // published: 배포 여부, name: 콘텐츠 이름, lastUpdated: 마지막 수정날짜, lastUpdateBy: 마지막 수정자(해시값)
+
     await callDoorayIncomingHook(req?.body);
+
     return res.status(200).json({ message: 'Webhook received and processed', req });
   } else {
 
