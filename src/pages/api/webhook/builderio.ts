@@ -11,22 +11,116 @@ type User = {
   name: string;
   email: string;
 }
+
+const users = [
+  {
+      "otherIntentSelect": "",
+      "role": "",
+      "id": "8cBBIK8TYPUzfqFwbftfDqnQK1W2",
+      "email": "dl_design@nhn-commerce.com",
+      "jobFunctions": [
+          "designer"
+      ],
+      "name": "Design",
+      "ownerId": "8cBBIK8TYPUzfqFwbftfDqnQK1W2",
+      "roles": {
+          "c5d00a9d8d714e7582390f7cf7b3e8bb": "admin",
+          "2028c8759b13430aa9220ce871a97cd1": "admin",
+          "9acc7a867c5742218a671e07d095a374": "admin",
+          "a73e01a1c6a34697ab20d49c30aab093": "developer"
+      },
+  },
+  {
+      "roles": {
+          "a73e01a1c6a34697ab20d49c30aab093": "developer"
+      },
+      "name": "웹서비스개발파트",
+      "organizations": [
+          "a73e01a1c6a34697ab20d49c30aab093",
+          "f98b53670d02415eaaaf8deffadf8586"
+      ],
+      "id": "QQTXgx0orsXh5oMsBLicAfiL92w1",
+      "ownerId": "QQTXgx0orsXh5oMsBLicAfiL92w1",
+      "email": "gd00002967@nhn-commerce.com",
+      "jobFunctions": [
+          "developer"
+      ],
+  },
+  {
+      "name": "",
+      "id": "ia4M3qbhA8M5CFendYxWQpH9vQe2",
+      "ownerId": "ia4M3qbhA8M5CFendYxWQpH9vQe2",
+      "email": "dl_business_builder@nhn-commerce.com",
+      "jobFunctions": [
+          "executive"
+      ],
+  },
+  {
+      "roles": {
+          "a73e01a1c6a34697ab20d49c30aab093": "creator"
+      },
+      "name": "",
+      "organizations": [
+          "a73e01a1c6a34697ab20d49c30aab093",
+          "f98b53670d02415eaaaf8deffadf8586"
+      ],
+      "id": "lgQYExrJY2YQ5doDaUj0oFGq7H32",
+      "email": "dl_mkt_builder@nhn-commerce.com",
+      "jobFunctions": [
+          "marketer"
+      ],
+  },
+  {
+      "roles": {
+          "a73e01a1c6a34697ab20d49c30aab093": "developer"
+      },
+      "name": "FE개발팀",
+      "id": "rPa3SjZo1DXNrgjkDzGQlwF4xJg1",
+      "ownerId": "rPa3SjZo1DXNrgjkDzGQlwF4xJg1",
+      "email": "dl_frontend@nhn-commerce.com",
+      "jobFunctions": [
+          "developer"
+      ],
+  },
+  {
+      "role": "",
+      "id": "tiOFL8nDnqSw5cN00SFni2DMBI03",
+      "email": "dl_builder_admin@nhn-commerce.com",
+      "name": "NHN커머스",
+      "jobFunctions": [
+          "product"
+      ],
+      "ownerId": "tiOFL8nDnqSw5cN00SFni2DMBI03",
+      "roles": {
+          "f98b53670d02415eaaaf8deffadf8586": "admin",
+          "2046e6bdb9d64878be4f08a616dfc9e7": "admin",
+          "4eec6762a4164d889ed721cfc7474605": "admin",
+          "d85b50f898f941e18bc0cae7e8dbc49a": "admin",
+          "a73e01a1c6a34697ab20d49c30aab093": "admin",
+          "a63974a3427f4e7a900e38654d5f9372": "admin",
+          "8e757552fd824edc8466f9a4318dcefb": "admin"
+      },
+  }
+];
+
 const getBuilderIoUser = async (userId: string) => {
-  const res = await fetch(requestBuilderIoUsersUrl, {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer bpk-ecbd170ea2f149f7ae7ecc3c7390757a'
-    }
-  })
+  // users api 아직 제공안함
+  // const res = await fetch(requestBuilderIoUsersUrl, {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: 'Bearer bpk-bf61da2beeef44c9a600ba4a851ef488'
+  //   }
+  // })
 
-  const data = await res.json();
+  // const data = await res.json();
 
-  const users = (data?.users ?? []) as User[];
+  // const users = (data?.users ?? []) as User[];
 
   const user = users.find(({ id }) => id === userId)
 
-  return user ? `${user.name}(${user.email})`: userId;
-  // return JSON.stringify(data);
+  const userName = user?.name ? `(${user.name})`: '';
+
+  return user ? `${user.email}${userName}`: userId;
 }; 
 
 const formatDate = (dateInput: number) => {
